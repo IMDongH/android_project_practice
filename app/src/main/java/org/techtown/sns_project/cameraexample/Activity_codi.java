@@ -1,13 +1,16 @@
 package org.techtown.sns_project.cameraexample;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +33,7 @@ public class Activity_codi extends AppCompatActivity {
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
-    String Codi_Url ="https://store.musinsa.com/app/goods/1551840";
+    String Codi_Url ="https://store.musinsa.com/app/goods/";
     ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
     String TAG="DONG";
@@ -41,20 +44,11 @@ public class Activity_codi extends AppCompatActivity {
         setContentView(R.layout.activity_codi);
 
         Intent intent = getIntent();
-
-       /* final String DEFAULT_PATH = "https://limdeeptest.page.link";
-        if(intent!=null){
-            Uri uri = getIntent().getData();
-            if(uri!=null)
-            {
-                String param = uri.getQueryParameter("key");
-
-                Codi_Url= DEFAULT_URL+param;
-            }
-        }
-*/
         String key = intent.getStringExtra("key");
+        //QR 화면으로부터 key 값을 받음
+        //key값이 NULL 일 수도 있고 제대로된 값이 아닐 수도 있음
         Codi_Url = DEFAULT_URL+key;
+
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
@@ -68,7 +62,7 @@ public class Activity_codi extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager_Similar = new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
         recyclerView_Codi.setLayoutManager(linearLayoutManager_Codi);
         recyclerView_Similar.setLayoutManager(linearLayoutManager_Similar);
-        Cadapter = new CodiAdapter();
+        Cadapter = new org.techtown.sns_project.cameraexample.CodiAdapter();
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
@@ -124,7 +118,13 @@ public class Activity_codi extends AppCompatActivity {
                         txt_ProductImg=  findViewById(R.id.txt_ProductImg);
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
-                        txt_ProductPrice.setText(price.text());
+
+                       try{ txt_ProductPrice.setText(price.text());}
+                       catch(NullPointerException e)
+                        {
+                            finish();
+                        }
+
                         //
                         int count=0;
                         for (Element element : product_Brand){
@@ -154,7 +154,7 @@ public class Activity_codi extends AppCompatActivity {
                         }
 
                         for (int i = 0; i < listTitle.size() ; i++) {
-                            CodiDTO data = new CodiDTO();
+                            org.techtown.sns_project.cameraexample.CodiDTO data = new org.techtown.sns_project.cameraexample.CodiDTO();
 
                             data.setTitle(listTitle.get(i));
                             data.setImageUrl(listUrl.get(i));
@@ -183,7 +183,7 @@ public class Activity_codi extends AppCompatActivity {
 
                         for(int i=0; i<listSTitle.size(); i++)
                         {
-                            CodiDTO data = new CodiDTO();
+                            org.techtown.sns_project.cameraexample.CodiDTO data = new org.techtown.sns_project.cameraexample.CodiDTO();
                             data.setImageUrl(listSUrl.get(i));
                             data.setBrand(listSBrand.get(i));
                             data.setTitle(listSTitle.get(i));
@@ -198,8 +198,12 @@ public class Activity_codi extends AppCompatActivity {
                 });
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+
+                Log.w(TAG,"ERROR");
+                finish();
+
+                //defensive code
             }
 
             return null;

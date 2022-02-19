@@ -43,23 +43,17 @@
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>
-
         <activity android:name=".cameraexample.ScanQR"
-            android:exported="true">
-            <!--   <activity android:name=".MainActivity">-->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
 
         <provider
-            android:authorities="com.example.cameraexample"
+            android:authorities="org.techtown.sns_project"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-            x
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemViewHolder> {
 
-    private ArrayList<CodiDTO> listData = new ArrayList<>();
+    private ArrayList<org.techtown.sns_project.cameraexample.CodiDTO> listData = new ArrayList<>();
 
     @NonNull
     @Override
@@ -37,7 +37,7 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemView
     public int getItemCount() {
         return listData.size();
     }
-    void addItem(CodiDTO data) {
+    void addItem(org.techtown.sns_project.cameraexample.CodiDTO data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
     }
@@ -54,7 +54,7 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemView
             txt_ProductPrice= itemView.findViewById(R.id.txt_ProductPrice);
         }
 
-        void onBind(CodiDTO data){
+        void onBind(org.techtown.sns_project.cameraexample.CodiDTO data){
 
             txt_ProductBrand.setText(data.getBrand());
             txt_ProductTitle.setText(data.getTitle());
