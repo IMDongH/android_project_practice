@@ -95,7 +95,8 @@ public class ScanQR extends AppCompatActivity {
     public boolean isNumeric(String str) {
         return Pattern.matches("^[0-9]*$", str);
     }
-
+//QR 인식시 발생하는 에러 방지
+    
     PermissionListener permissionListener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
