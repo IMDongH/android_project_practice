@@ -104,17 +104,24 @@ public class Activity_codi extends AppCompatActivity {
                 Element price = product_Price.select("span[class=txt_price_member]").first();
                 //가격
                 final Elements product_Similar= doc.select("div[id=wrap_similar_product] div[class=list-box box list_related_product owl-carousel] ul li");
+                //비슷한 제품 관련 html
                 final Elements Similar_Img = product_Similar.select("div[class=list_img] img");
+                //비슷한 제품 이미지 url
                 final Elements Similar_Title= product_Similar.select("p[class=item_title]");
+                //비슷한 제품 이름
                 final Elements Similar_Brand= product_Similar.select("p[class=list_info]");
+                //비슷한 제품 브랜드명
                 final Elements Similar_Price= product_Similar.select("p[class=price]");
+                //비슷한 제품 가격
                 final Elements Similar_Url= product_Similar.select("div[class=list_img] a");
+                //비슷한 제품 클릭 링크
 
                 Handler handler = new Handler(Looper.getMainLooper()); // 객체생성
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        final Elements productImg = doc.select("div[class=product-img] img"); //제품사진
+                        final Elements productImg = doc.select("div[class=product-img] img");
+                        //제품사진
                         txt_ProductImg=  findViewById(R.id.txt_ProductImg);
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
