@@ -105,6 +105,7 @@ public class Activity_codi extends AppCompatActivity {
                 //가격
                 final Elements product_Similar= doc.select("div[id=wrap_similar_product] div[class=list-box box list_related_product owl-carousel] ul li");
                 //비슷한 제품 관련 html
+                //
                 final Elements Similar_Img = product_Similar.select("div[class=list_img] img");
                 //비슷한 제품 이미지 url
                 final Elements Similar_Title= product_Similar.select("p[class=item_title]");
